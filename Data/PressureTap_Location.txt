@@ -1,0 +1,4 @@
+Pressure Sensor 1 --> Pressure Tap 5
+Pressure Sensor 2 --> Pressure Tap 2
+Pressure Sensor 3 --> Pressure Tap 3
+Pressure Sensor 4 --> Pressure Tap 4
