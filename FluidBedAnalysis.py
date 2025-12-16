@@ -84,14 +84,16 @@ def c_k_eqn():
     epsilon = 1 - 800/1400
     dp = 0.000071                           # [m]
     mu = 1.8346 * 10**-5                    # [kg/(m*s)]
+    H = 0.466725                            # [m]
     
     air_SmLPM = np.array([169, 338, 642, 946, 1294, 1642, 1943, 2244, 2560.5])
     mLPM = air_SmLPM * (71.6/70)
     U_air = mLPM * (1/1000000) * (1/(np.pi * 0.08255**2)) * (1/60)
     
     deltaP_H = 180 * (mu*U_air/dp**2) * (1-epsilon)**2 / epsilon**3
+    deltaP = deltaP_H * H
     
-    return deltaP_H
+    return deltaP
 
 
 def ergen():
@@ -102,14 +104,16 @@ def ergen():
     dp = 0.000071                           # [m]
     mu = 1.8346 * 10**-5                    # [kg/(m*s)]
     rho_f = 1.196                           # [kg/m^3]
+    H = 0.466725                            # [m]
     
     air_SmLPM = np.array([169, 338, 642, 946, 1294, 1642, 1943, 2244, 2560.5])
     mLPM = air_SmLPM * (71.6/70)
     U_air = mLPM * (1/1000000) * (1/(np.pi * 0.08255**2)) * (1/60)      # [m/s]
     
     deltaP_H = 150 * (mu*U_air/dp**2) * ((1-epsilon)**2/epsilon**3) +1.75 * (rho_f * U_air**2)/dp * ((1-epsilon)/epsilon**3)
+    deltaP = deltaP_H * H
     
-    return deltaP_H
+    return deltaP
     
 
 def plot(deltaP, std):
@@ -143,8 +147,8 @@ def plot(deltaP, std):
         fmt='o',
         color='blue',
         label='Pressure Tap 4')
-    # ax.plot(U_air, CK_eqn, label = "Carman-Kozeny Equation")
-    # ax.plot(U_air, ergen_eqn, label = "Ergen Equation")
+    ax.plot(U_air, CK_eqn, label = "Carman-Kozeny Equation")
+    ax.plot(U_air, ergen_eqn, label = "Ergen Equation")
     
     ax.set_xlabel("Air Velocity (m/s)", fontsize=17)
     ax.set_ylabel("Pressure Drop (psig)", fontsize=17)
